@@ -6,13 +6,16 @@ void main() => runApp(new MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final wordPair = new WordPair.random(); // 生成一个随机英文单词
     return new MaterialApp(
-      title: "Title",
+      title: 'Welcome to Flutter',
       home: new Scaffold(
         appBar: new AppBar(
-          title: new Text("Bar title"),
+          title: new Text('Welcome to Flutter'),
         ),
-        body: new Container(child: new Text("CHild")),
+        body: new Center(
+          child: new Text(wordPair.asPascalCase),
+        ),
       ),
     );
   }
