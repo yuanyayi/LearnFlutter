@@ -34,9 +34,10 @@ class RandomWords extends StatefulWidget {
 
 class RandomWordsState extends State<RandomWords> {
   // @override
-  final _suggestions = <WordPair>[];
-  final _biggerFont = const TextStyle(fontSize: 18.0);
+  final _suggestions = <WordPair>[]; // 保存字符串的数组
+  final _saved = new Set<WordPair>(); // 保存已收藏字符串的集合（去重）
 
+  final _biggerFont = const TextStyle(fontSize: 18.0);
   Widget _buildSuggestions() {
     return new ListView.builder(
         padding: const EdgeInsets.all(16.0),
@@ -57,10 +58,16 @@ class RandomWordsState extends State<RandomWords> {
             _suggestions.addAll(generateWordPairs().take(10));
           }
           Widget _buildRow(WordPair pair) {
+            final alreadySaved = _saved.contains(pair); // 判断是否已被收藏
+
             return new ListTile(
               title: new Text(
                 pair.asPascalCase,
                 style: _biggerFont,
+              ),
+              trailing: new Icon(
+                alreadySaved ? Icons.favorite : Icons.favorite_border,
+                color: alreadySaved ? Colors.red : null,
               ),
             );
           }
